@@ -70,3 +70,34 @@ int main() {
   }
   return 0;
 }
+
+void clearInputBuffer() {
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF)
+    ;
+}
+
+void addTask() {
+  if (taskCount >= MAX_TASKS) {
+    printf("Task list is full! Cannot add more tasks.\n");
+    return;
+  }
+
+  Task newTask;
+  newTask.id = taskCount + 1;
+  newTask.status = 0; 
+
+  printf("Enter task description: ");
+  if (fgets(newTask.description, DESC_LEN, stdin) != NULL) {
+    size_t len = strlen(newTask.description);
+    if (len > 0 && newTask.description[len - 1] == '\n') {
+      newTask.description[len - 1] = '\0';
+    }
+    tasks[taskCount] = newTask;
+    taskCount++;
+    printf("Task added successfully (ID: %d).\n", newTask.id);
+  } else {
+    printf("Error reading input.\n");
+  }
+}
+
