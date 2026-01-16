@@ -160,3 +160,41 @@ void markTaskCompleted() {
     printf("Task with ID %d not found.\n", id);
   }
 }
+
+void saveTasksToFile() {
+  FILE *fp = fopen(FILE_NAME, "w");
+  if (fp == NULL) {
+    printf("Error opening file for writing.\n");
+    return;
+  }
+
+  for (int i = 0; i < taskCount; i++) {
+    fprintf(fp, "%d|%d|%s\n", tasks[i].id, tasks[i].status,
+            tasks[i].description);
+  }
+
+  fclose(fp);
+  printf("All tasks saved to '%s'.\n", FILE_NAME);
+}
+
+void loadTasksFromFile() {
+  FILE *fp = fopen(FILE_NAME, "r");
+  if (fp == NULL) {
+    return;
+  }
+
+  taskCount = 0;
+  char line[DESC_LEN + 20]; 
+
+  while (fgets(line, sizeof(line), fp)) {
+    if (taskCount >= MAX_TASKS)
+      break;
+
+    Task t;
+    if (sscanf(line, "%d|%d|%[^\n]", &t.id, &t.status, t.description) == 3) {
+      tasks[taskCount++] = t;
+    }
+  }
+
+  fclose(fp);
+}
