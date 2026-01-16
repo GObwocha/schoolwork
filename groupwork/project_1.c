@@ -113,3 +113,19 @@ void addTask() {
   }
 }
 
+//function to view task
+void viewTasks() {
+  if (taskCount == 0) {
+    printf("No tasks found.\n");
+    return;
+  }
+
+  printf("\n%-5s %-15s %-50s\n", "ID", "Status", "Description");
+  printf("---------------------------------------------------------------------"
+         "-----\n");
+  for (int i = 0; i < taskCount; i++) {
+    printf("%-5d %-15s %-50s\n", tasks[i].id,
+           tasks[i].status == 1 ? "Completed" : "Pending",
+           tasks[i].description);
+  }
+}
