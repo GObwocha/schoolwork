@@ -10,6 +10,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_TASKS 100
+#define DESC_LEN 100
+
+typedef struct {
+  int id;
+  char description[DESC_LEN];
+  int status; 
+} Task;
+
+Task tasks[MAX_TASKS];
+int taskCount = 0;
+
 void loadTasksFromFile();
 void saveTasksToFile();
 void addTask();
