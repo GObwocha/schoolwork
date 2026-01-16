@@ -129,3 +129,34 @@ void viewTasks() {
            tasks[i].description);
   }
 }
+
+//function to indicate task is completed
+void markTaskCompleted() {
+  int id;
+  int found = 0;
+
+  viewTasks();
+  if (taskCount == 0)
+    return;
+
+  printf("\nEnter Task ID to mark as completed: ");
+  if (scanf("%d", &id) != 1) {
+    printf("Invalid input.\n");
+    clearInputBuffer();
+    return;
+  }
+  clearInputBuffer();
+
+  for (int i = 0; i < taskCount; i++) {
+    if (tasks[i].id == id) {
+      tasks[i].status = 1;
+      printf("Task ID %d marked as completed.\n", id);
+      found = 1;
+      break;
+    }
+  }
+
+  if (!found) {
+    printf("Task with ID %d not found.\n", id);
+  }
+}
